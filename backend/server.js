@@ -9,7 +9,7 @@ const expenseRoutes = require("./routes/expenseRoutes");
 const incomeRoutes = require("./routes/incomeRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
-//Middleware to handle cors
+
 
 app.use(
     cors({
@@ -27,7 +27,7 @@ app.use("/api/v1/income",incomeRoutes);
 app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/dashboard",dashboardRoutes);
 
-//server uploads folder
+
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
 app.get("/", (req, res) => {
