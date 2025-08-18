@@ -21,7 +21,7 @@ const SideMenu = ({activeMenu}) => {
     }
 
     const handleLogout =()=>{
-        toast.error("Log out Successful");
+        toast.success("Log out Successful");
         localStorage.removeItem("accessToken");
         clearUser();
         navigate("/login");
