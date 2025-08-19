@@ -1,7 +1,6 @@
 const User=require("../models/User");
 const jwt = require("jsonwebtoken");
 
-//Generate Jwt token
 
 const generateToken=(id) =>{
    return  jwt.sign({id},process.env.JWT_SECRET,{expiresIn :"1h"});
@@ -60,6 +59,7 @@ exports.loginUser= async (req,res)=>{
    }
 
 };
+
 exports.getUserInfo = async (req,res)=>{
    try{
       const user= await User.findById(req.user.id).select("-password");
@@ -73,4 +73,24 @@ exports.getUserInfo = async (req,res)=>{
       res.status(500).json({message:"Error Registering User",error:err.message});
    }
 
+};
+
+exports.updateProfileImage = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.profileImageUrl = req.body.profileImageUrl; 
+    await user.save();
+
+    res.json({
+      success: true,
+      profileImageUrl: user.profileImageUrl,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating profile image", error: err.message });
+  }
 };

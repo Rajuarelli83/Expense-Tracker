@@ -1,12 +1,13 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 const Modal = ({ children, onClose, title }) => {
-    return (
+    return ReactDOM.createPortal(
     
-                <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden bg-black/20 bg-opacity-50">
+                <div className="fixed inset top-0 right-0 left-0 z-[9999] flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden bg-black/20 bg-opacity-50">
                     
                  
-                    <div className="relative p-4 w-full max-w-2xl max-h-full">
+                    <div className="relative p-4 w-full max-w-2xl max-h-full  z-50">
                         <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
                             
                       
@@ -29,7 +30,7 @@ const Modal = ({ children, onClose, title }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>,document.body
 
     );
 };

@@ -9,8 +9,6 @@ const expenseRoutes = require("./routes/expenseRoutes");
 const incomeRoutes = require("./routes/incomeRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
-
-
 app.use(
     cors({
         origin :process.env.CLIENT_URL || "*",
@@ -27,8 +25,6 @@ app.use("/api/v1/income",incomeRoutes);
 app.use("/api/v1/expense",expenseRoutes);
 app.use("/api/v1/dashboard",dashboardRoutes);
 
-
-app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 
 app.get("/", (req, res) => {
   res.send("Server is up and running!🏃 at localhost:8000");

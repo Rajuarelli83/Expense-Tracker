@@ -8,8 +8,6 @@ const {
   downloadIncomeExcel
 } = require("../controllers/incomeController");
 
-
-
 const router = express.Router();
 
 router.post("/add",protect,addIncome);
