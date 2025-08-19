@@ -1,4 +1,4 @@
-export const BASE_URL=process.env.BACKEND_URL;
+export const BASE_URL="https://expense-tracker-backend-76h2.onrender.com/";
 export const API_PATHS = {
   AUTH: {
     LOGIN: "/api/v1/auth/login",
