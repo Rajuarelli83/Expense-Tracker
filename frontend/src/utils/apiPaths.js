@@ -1,5 +1,4 @@
-export const BASE_URL="https://expense-tracker-backend-76h2.onrender.com/";
-
+export const BASE_URL=process.env.BACKEND_URL;
 export const API_PATHS = {
   AUTH: {
     LOGIN: "/api/v1/auth/login",
@@ -20,8 +19,5 @@ export const API_PATHS = {
     GET_ALL_EXPENSE: "/api/v1/expense/get",
     DELETE_EXPENSE: (expenseId) => `/api/v1/expense/${expenseId}`,
     DOWNLOAD_EXPENSE: "/api/v1/expense/downloadexcel",
-  },
-  IMAGE: {
-    UPLOAD_IMAGE: "/api/v1/auth/upload-image",
-  },
+  }
 };

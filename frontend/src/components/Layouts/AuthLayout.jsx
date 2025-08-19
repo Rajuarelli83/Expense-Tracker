@@ -1,6 +1,19 @@
 import Image from '../../assets/Image.png';
 import { LuTrendingUpDown } from 'react-icons/lu';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
+
 const AuthLayout = ({ children }) => {
+    const navigate = useNavigate();
+    const {user}= useContext(UserContext);
+    const token = localStorage.getItem("accessToken");
+   useEffect(() => {
+    if (token || user) {
+      navigate("/dashboard");
+    }
+  }, [token, user]);
+
     return (
         <div className="flex">
         <div className="w-screen h-screen md:w-[60vw] px-12 lg:pr-2 pt-8 pb-12">
@@ -25,7 +38,6 @@ const AuthLayout = ({ children }) => {
         </div>
     );
 };
-
 
 
 export default AuthLayout;

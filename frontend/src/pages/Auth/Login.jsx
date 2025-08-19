@@ -6,6 +6,7 @@ import {validateEmail} from '../../utils/helper';
 import axiosInstance from '../../utils/axiosInstance';
 import {API_PATHS} from '../../utils/apiPaths';
 import {UserContext} from '../../context/UserContext';
+import {toast} from "react-hot-toast";
 
 const Login = () => {
     const [email,setEmail]=useState("");
@@ -16,6 +17,7 @@ const Login = () => {
     const navigate =useNavigate();
 
     const handleLogin = async (e)=>{
+
         e.preventDefault();
         if(!validateEmail(email)){
             setError("Please enter a valid email address.");
@@ -26,6 +28,14 @@ const Login = () => {
             return;
         }
         setError("");
+           toast.custom(
+            <div className="bg-purple-600/50 text-white border border-black-400 mt-2 px-4 py-2 rounded-lg shadow-lg">
+                        Please wait ..Verifying user
+            </div>,
+                {
+                    duration: 200, 
+                }
+        );
         //Login APi call 
         try{
             const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN
@@ -40,6 +50,7 @@ const Login = () => {
                 localStorage.setItem("accessToken",token);
                 updateUser(user);
                 navigate("/dashboard");
+                toast.success("Login successful");
             }
         }
         catch(error){

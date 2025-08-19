@@ -6,6 +6,7 @@ const generateToken=(id) =>{
    return  jwt.sign({id},process.env.JWT_SECRET,{expiresIn :"1h"});
 }
 
+
 exports.registerUser = async (req,res)=>{
  const {fullName,email,password,profileImageUrl} = req.body;
 
@@ -75,22 +76,3 @@ exports.getUserInfo = async (req,res)=>{
 
 };
 
-exports.updateProfileImage = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.profileImageUrl = req.body.profileImageUrl; 
-    await user.save();
-
-    res.json({
-      success: true,
-      profileImageUrl: user.profileImageUrl,
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Error updating profile image", error: err.message });
-  }
-};

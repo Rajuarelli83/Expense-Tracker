@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const cors=require("cors");
-const path = require("path");
 const app =express();
 const connectDB = require('./config/db');
 const authRoutes = require("./routes/authRoutes");
@@ -27,7 +26,7 @@ app.use("/api/v1/dashboard",dashboardRoutes);
 
 
 app.get("/", (req, res) => {
-  res.send("Server is up and running!🏃 at localhost:8000");
+  res.send("Server is up and running!🏃 ");
 });
 
 const PORT =process.env.PORT || 5000;

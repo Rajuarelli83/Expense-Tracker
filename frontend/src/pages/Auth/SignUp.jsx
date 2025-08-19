@@ -7,7 +7,7 @@ import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import axiosInstance from '../../utils/axiosInstance';
 import {API_PATHS} from '../../utils/apiPaths';
 import {UserContext} from '../../context/UserContext';
-import uploadImage from '../../utils/uploadImage';
+import {toast} from "react-hot-toast";
 
 
 const SignUp = () => {
@@ -24,7 +24,8 @@ const SignUp = () => {
  
         const handleSignUp = async (e)=>{
                 e.preventDefault();
-                let profileImageUrl ="";
+               
+             
                 if(!fullName){
                     setError("Please enter your Name.");
                     return;
@@ -38,28 +39,34 @@ const SignUp = () => {
                     return;
                 }
                 setError(""); 
-                
-        try{
-            if(profilePic) {
-                const imgUploadRes = await uploadImage(profilePic);
-                profileImageUrl =imgUploadRes.imageUrl || "";
+                toast.custom(
+                    <div className="bg-purple-600/50 text-white border border-black-400 mt-2 px-4 py-2 rounded-lg shadow-lg">
+                        Please wait a moment to sign up
+                    </div>,
+                {
+                    duration: 200, 
+                });
 
-            }
+                const formData = new FormData();
+                formData.append("fullName", fullName);
+                formData.append("email", email);
+                formData.append("password", password);
+                if (profilePic) formData.append("profilePic", profilePic);
+              
+        try{
 
             const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER
-                ,{
-                    fullName,
-                    email,
-                    password,
-                    profileImageUrl,
-                }
-            );
+                ,formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            
             const {token ,user}=response.data;
             if(token)
             {
                 localStorage.setItem("accessToken",token);
                 updateUser(user);
                 navigate("/dashboard");
+                toast.success("Sign Up successful");
             }
         }
         catch(error){

@@ -1,47 +1,44 @@
 const express = require("express");
-const multer = require("multer");
 const cloudinary = require("../utils/cloudinary");
-const fs = require("fs");
-
-const {protect} = require("../middleware/authMiddleware");
-const upload =require("../middleware/uploadMiddleware");
-
-const {
-  registerUser,
-  loginUser,
-  getUserInfo,
-  updateProfileImage,
-} = require("../controllers/authController");
-
+const { Readable } = require("stream");
+const multer = require("multer");
+const { registerUser, loginUser, getUserInfo } = require("../controllers/authController");
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.post("/register", registerUser);
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 router.post("/login", loginUser);
-router.get("/getUser",protect,getUserInfo);  
+router.get("/getUser", protect, getUserInfo);
 
-router.post("/upload-image", upload.single("image"), async (req, res) => {
+
+router.post("/register", upload.single("profilePic"), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
+    let profileImageUrl = "";
+    if (req.file) {
+      const bufferStream = new Readable();
+      bufferStream.push(req.file.buffer);
+      bufferStream.push(null);
+
+      const result = await new Promise((resolve, reject) => {
+        const cloudStream = cloudinary.uploader.upload_stream(
+          { folder: "profile_pics" },
+          (error, result) => (error ? reject(error) : resolve(result))
+        );
+        bufferStream.pipe(cloudStream);
+      });
+
+      profileImageUrl = result.secure_url;
     }
-
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "profile_pics", 
-    });
-  
-    fs.unlinkSync(req.file.path);
-
-    res.json({
-      success: true,
-      imageUrl: result.secure_url, 
-    });
+    req.body.profileImageUrl = profileImageUrl;
+    await registerUser(req, res);
   } catch (error) {
     console.error("Cloudinary upload error:", error);
-    res.status(500).json({ success: false, message: "Image upload failed" });
+    res.status(500).json({ success: false, message: "Signup failed" });
   }
 });
 
-router.put("/update-profile-image", protect, updateProfileImage);
 
 module.exports = router;
