@@ -88,10 +88,10 @@ const SignUp = () => {
            <form onSubmit={handleSignUp} >
             
              <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+            <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
                  <Input value={fullName} onChange={({target})=>setFullName(target.value)} label="Full Name" placeholder="Raju" type="text" />
                  <Input value={email} onChange={({target})=>setEmail(target.value)} label="Email Address" placeholder="raju@gamil.com" type="text" />
-                 <div className="col-span-2">
+                 <div className="md:col-span-2">
                     <Input value={password} onChange={({target})=>setPassword(target.value)} label="Password" placeholder="Enter Password :" type="password" />
                  </div>
             </div>
