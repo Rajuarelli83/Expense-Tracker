@@ -2,16 +2,16 @@
 <h3 align="center">Developed An application used to track income ,expenses of user and shows the information in attractive graphs and charts.</h3>
 
 - **Functionalities Implemented:**
-- 🫆 User Authentication – Secure login and sign-up using JWT authentication.
-- 🌁 Dashboard Overview – Displays Total Balance, Income, and Expenses in summary cards.
-- 💰 Income Management – Add, view, delete, and export income sources.
-- 💸  Expense Management – Add, view, delete, and export expenses with category-based tracking.
-- ⚡ Interactive Charts – Visual representation of income & expenses using Bar, Pie, and Line charts.
-- 🔁 Recent Transactions – Displays the latest income and expense records for quick access.
-- 📢 Expense & Income Reports – Download all income and expense data in Excel format.
-- 📲 Mobile Responsive UI – Works seamlessly across desktops, tablets, and mobile devices.
-- 🧭 Intuitive Navigation – Sidebar menu with easy access to Dashboard, Income, Expenses, and Logout.
-- 🗑️ Delete Functionality – Hover over income/expense cards to reveal a delete button for easy
+- 🫆**User Authentication** – Secure login and sign-up using JWT authentication.
+- 🌁 **Dashboard Overview**  – Displays Total Balance, Income, and Expenses in summary cards.
+- 💰 **Income Management** – Add, view, delete, and export income sources.
+- 💸 **Expense Management** – Add, view, delete, and export expenses with category-based tracking.
+- ⚡ **Interactive Charts** – Visual representation of income & expenses using Bar, Pie, and Line charts.
+- 🔁 **Recent Transactions** – Displays the latest income and expense records for quick access.
+- 📢 **Expense & Income Reports** – Download all income and expense data in Excel format.
+- 📲 **Mobile Responsive UI** – Works seamlessly across desktops, tablets, and mobile devices.
+- 🧭 **Intuitive Navigation** – Sidebar menu with easy access to Dashboard, Income, Expenses, and Logout.
+- 🗑️ **Delete Functionality** – Hover over income/expense cards to reveal a delete button for easy
 
 
 
